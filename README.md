@@ -25,6 +25,9 @@ front-end frameworks included.
 1. Create a new repository on [github.com](https://github.com),
     _not GitHub Enterprise_.
 1. Name the new repository with the same name used on Step 3.
+1. Follow the instructions on your new repository's setup page. For details on
+   how to push to Github, refer to the section on Github entitled "…or push an existing 
+   repository from the command line." Further documentation can be found [here](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/).
 
 ## Structure
 
