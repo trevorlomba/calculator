@@ -2,7 +2,7 @@
   "default": ["nag", "test"],
   "deploy": [
     "shell:git-is-clean",
-    "shell:checkGitIgnore",
+    "shell:check-gitignore",
     "shell:git-checkout-master",
     "build",
     "shell:git-push-master",
