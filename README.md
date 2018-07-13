@@ -37,7 +37,7 @@ responsibilities and use the `require` syntax put references where they're
 needed.
 
 Developers should set `apiUrls.production` and `apiUrls.development` in
-[`config/environment.js`](config/environment.js).  With
+[`assets/scripts/config.js`](assets/scripts/config.js).  With
 `apiUrls` set, developers may rely on `apiUrl` as the base for API
 URLs.
 
