@@ -30,7 +30,7 @@ front-end frameworks included.
 
 Developers should store JavaScript files in [`assets/scripts`](assets/scripts).
 The "manifest" or entry-point is
-[`assets/scripts/index.js`](assets/scripts/index.js). In general, only
+[`assets/scripts/app.js`](assets/scripts/app.js). In general, only
 application initialization goes in this file. It's normal for developers to
 start putting all code in this file, but encourage them to break out different
 responsibilities and use the `require` syntax put references where they're
