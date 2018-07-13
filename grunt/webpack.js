@@ -42,14 +42,18 @@ module.exports = {
           test: /\.css$/,
           use: [
             { loader: 'style-loader' },
-            { loader: 'css-loader' }
+            { loader: 'css-loader?url=false' }
           ]
         },
         {
           test: /\.scss$/,
           use: [
             { loader: 'style-loader' },
-            { loader: 'css-loader' },
+            { loader: 'css-loader',
+              options: {
+                url: false
+              }
+            },
             {
               loader: 'sass-loader',
               options: {

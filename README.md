@@ -53,6 +53,23 @@ to send to an API.
 
 To deploy a browser-template based SPA, run `grunt deploy`.
 
+## Adding Images
+
+To add images to your project, you must store them in the `public` directory.
+To use the image in HTML or CSS, write the path to the image like this:
+
+```html
+<img src="public/cat.jpg">
+```
+or
+```css
+#my-cool-div {
+  background-image: url('public/cat.jpg')
+}
+```
+
+Note that there's no `./` or `/` in front of `public/filename.jpg`.
+
 ## Tasks
 
 Developers should run these often!
