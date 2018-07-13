@@ -15,6 +15,5 @@
   "serve": ["server"],
   "s": ["server"],
   "make-standard": ["eslint:fix"],
-  "nag": ["eslint:all", "jsonlint:all", "sasslint:all"],
-  "test": ["mocha_phantomjs"]
+  "nag": ["eslint:all", "jsonlint:all", "sasslint:all"]
 }
