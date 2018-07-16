@@ -32,7 +32,7 @@ module.exports = {
   'git-push-master': {
     // if the push to master fails, we want to delete any files that were created
     // by the build process and exit all remaining build steps
-    command: 'git push origin master || (git clean -xdf && false)'
+    command: 'git push origin master || (git clean -f && false)'
   },
   'git-checkout-master': {
     command: 'git checkout master'
