@@ -1,5 +1,5 @@
 {
-  "default": ["nag", "test"],
+  "default": ["nag"],
   "deploy": [
     "shell:git-is-clean",
     "shell:check-gitignore",
