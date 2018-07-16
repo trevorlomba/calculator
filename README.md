@@ -26,7 +26,7 @@ front-end frameworks included.
     _not GitHub Enterprise_.
 1. Name the new repository with the same name used on Step 3.
 1. Follow the instructions on your new repository's setup page. For details on
-   how to push to Github, refer to the section on Github entitled "…or push an existing 
+   how to push to Github, refer to the section on Github entitled "…or push an existing
    repository from the command line." Further documentation can be found [here](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/).
 
 ## Structure
@@ -69,6 +69,26 @@ or
 ```
 
 Note that there's no `./` or `/` in front of `public/filename.jpg`.
+
+## Adding Fonts
+
+To add custom fonts to your app, you can either use a CDN like Google Fonts, or
+you can download the fonts and save them in the `public` directory. If you use
+the former method, follow the directions on the website providing the fonts.
+
+For local fonts, put the files in `public`, and then import and use them in a
+`.scss` file like this:
+
+```scss
+@font-face {
+  font-family: 'Nature Beauty';
+  src: url('public/Nature-Beauty.ttf') format('truetype');
+}
+
+.element-with-custom-font {
+  font-family: 'Nature Beauty';
+}
+```
 
 ## Tasks
 
