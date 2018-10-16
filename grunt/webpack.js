@@ -5,6 +5,7 @@ const path = require('path')
 
 module.exports = {
   options: {
+    mode: 'development',
     entry: {
       application: './index.js',
       vendor: ['jquery']
@@ -16,11 +17,14 @@ module.exports = {
       publicPath: 'public/'
     },
 
-    plugins: [
-      new webpack.optimize.CommonsChunkPlugin({
+    optimization: {
+      splitChunks: {
         name: 'vendor',
         minChunks: Infinity
-      }),
+      }
+    },
+
+    plugins: [
       new webpack.ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery',
