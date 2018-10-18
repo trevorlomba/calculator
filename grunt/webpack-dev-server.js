@@ -9,12 +9,8 @@ const webpackConfig = clone(require('./webpack').options)
 // Path module provides utilities for working with file and directory path
 const path = require('path')
 
-// Turns any callback into a Webpack Plugin
-const WebpackOnBuildPlugin = require('on-build-webpack')
-
-// Opens a new browser tab when Webpack loads, will be used in
-// WebpackOnBuildPlugin callback
-const opn = require('opn')
+// Opens a new browser tab when Webpack loads.
+const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 
 // port for development server
 const port = 7165
@@ -48,9 +44,7 @@ module.exports = {
         new webpack.LoaderOptionsPlugin({
           debug: true
         }),
-        new WebpackOnBuildPlugin(function () {
-          opn('http://localhost:' + port)
-        })
+        new OpenBrowserPlugin({ url: 'http://localhost:' + port })
       ]
     }
   }
