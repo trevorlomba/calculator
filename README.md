@@ -9,6 +9,8 @@ front-end frameworks included.
 ## Installation
 
 1. [Download](../../archive/master.zip) this template.
+    - **Do Not Fork And Clone**
+    - Click the "Clone or Download" button and select "Download Zip".
 1. Move to the `wdi/projects` directory, then unzip the template directory with
     `unzip /Users/<user-name>/Downloads/browser-template-master.zip`.
 1. Rename the template directory from `browser-template-master` to
