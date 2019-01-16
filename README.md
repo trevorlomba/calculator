@@ -16,6 +16,8 @@ front-end frameworks included.
 1. Empty [`README.md`](README.md) and fill with your own content.
 1. Replace all instances of `ga-wdi-boston.browser-template` with the name of
     your project.
+    - You can search for all instances of text in Atom by pressing
+    `commant+shift+f`.
 1. Move into the new project and `git init`.
 1. Add all of the files in your project with the command `git add --all`.
       - **Note: This is the only time you should run this command!**
