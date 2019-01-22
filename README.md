@@ -104,6 +104,8 @@ Developers should run these often!
 - `grunt <server|serve|s>`: generates bundles, watches, and livereloads
 - `grunt build`: place bundled styles and scripts where `index.html` can find
     them
+- `grunt deploy`: builds and deploys master branch
+
 
 ## Additional Resources
 
