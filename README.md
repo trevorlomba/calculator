@@ -35,6 +35,8 @@ front-end frameworks included.
 
 ## Structure
 
+### Scripts
+
 Developers should store JavaScript files in [`assets/scripts`](assets/scripts).
 The "manifest" or entry-point is
 [`assets/scripts/app.js`](assets/scripts/app.js). In general, only
@@ -43,17 +45,25 @@ start putting all code in this file, but encourage them to break out different
 responsibilities and use the `require` syntax put references where they're
 needed.
 
+### Config
+
 Developers should set `apiUrls.production` and `apiUrls.development` in
 [`assets/scripts/config.js`](assets/scripts/config.js).  With
 `apiUrls` set, developers may rely on `apiUrl` as the base for API
 URLs.
 
+### Styles
+
 Developers should store styles in [`assets/styles`](assets/styles) and load them
 from [`assets/styles/index.scss`](assets/styles/index.scss). Bootstrap version 3 is
 included in this template.
 
+### Forms and Using `getFormFields`
+
 Developers should use [getFormFields](get-form-fields.md) to retrieve form data
 to send to an API.
+
+### Deployment
 
 To deploy a browser-template based SPA, run `grunt deploy`.
 
