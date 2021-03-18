@@ -30,8 +30,9 @@ front-end frameworks included.
     _not GitHub Enterprise_.
 1. Name the new repository with the same name used on Step 3.
 1. Follow the instructions on your new repository's setup page. For details on
-   how to push to Github, refer to the section on Github entitled "…or push an existing
-   repository from the command line." Further documentation can be found [here](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/).
+   how to push to Github, refer to the section on Github entitled **"…or push an existing
+   repository from the command line."** Further documentation can be found [here](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/).
+   > **Note:** This last step will rename your default branch to **main**. This branch name will be used when deploying.
 
 ## Structure
 
