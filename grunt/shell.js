@@ -25,7 +25,8 @@ module.exports = {
     // if we have a master branch (git branch | grep master)
     // and don't have a main branch. (git branch | (! grep main))
     // Then rename the master branch to main
-    command: '(git branch | grep master) && (git branch | (! grep main)) && git branch -m master main'
+    // No matter what, return  `true` so the deployment can continue
+    command: '((git branch | grep master) && (git branch | (! grep main)) && git branch -m master main) || true'
   },
   'git-is-clean': {
     // `$(git status --porcelain)` will evaluate to the empty string if the
