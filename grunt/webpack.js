@@ -1,40 +1,32 @@
 'use strict'
-
 const webpack = require('webpack')
-const path = require('path')
 
+const path = require('path')
 module.exports = {
   options: {
     entry: {
       application: './index.js',
       vendor: ['jquery']
     },
-
     output: {
       filename: '[name].js',
       path: path.join(__dirname, '/../public'),
       publicPath: 'public/'
     },
-
     plugins: [
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: Infinity
-      }),
       new webpack.ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery',
         'window.jQuery': 'jquery'
-      })
+      }),
     ],
-
     module: {
       rules: [
         {
           test: /\.js$/,
           exclude: /node_modules/,
           loader: 'babel-loader',
-          query: {
+          options: {
             presets: ['env']
           }
         },
@@ -57,24 +49,33 @@ module.exports = {
             {
               loader: 'postcss-loader', // Run post css actions
               options: {
-                plugins: function () { // post css plugins, can be exported to postcss.config.js
-                  return [
-                    require('autoprefixer')
-                  ]
+                postcssOptions: {
+                  plugins: function () { // post css plugins, can be exported to postcss.config.js
+                    return [
+                      require('autoprefixer')
+                    ]
+                  }
                 }
               }
-            }, {
+            },
+            {
               loader: 'sass-loader',
               options: {
-                includePaths: [
-                  path.resolve(__dirname, './node_modules')
-                ]
+                sassOptions: {
+                  includePaths: [
+                    path.resolve(__dirname, './node_modules')
+                  ]
+                }
               }
             }]
         },
         {
           test: /\.woff[\d]?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-          loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            mimetype: 'application/font-woff'
+          }
         },
         {
           test: /\.(ttf|eot|svg|png|jpg|gif)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -83,7 +84,7 @@ module.exports = {
         {
           test: /\.(hbs|handlebars)$/,
           loader: 'handlebars-loader',
-          query: {
+          options: {
             helperDirs: [
               path.join(__dirname, '/../assets/scripts/templates/helpers')
             ]
@@ -91,7 +92,6 @@ module.exports = {
         }
       ]
     },
-
     resolve: {
       alias: {
         handlebars: 'handlebars/dist/handlebars.js'
@@ -103,7 +103,6 @@ module.exports = {
       reasons: true
     }
   },
-
   build: {
     failOnError: true,
     watch: false,
