@@ -1,5 +1,3 @@
-'use strict'
-
 // This command will check if `.gitignore` exists, and ensure that git isn't
 // tracking `node_modules`. If both of the above are true, the deploy will
 // proceed. If `.gitingore` is missing or `node_modules` is tracked, it will
