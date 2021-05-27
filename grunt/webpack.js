@@ -80,22 +80,8 @@ module.exports = {
         {
           test: /\.(ttf|eot|svg|png|jpg|gif)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
           loader: 'file-loader'
-        },
-        {
-          test: /\.(hbs|handlebars)$/,
-          loader: 'handlebars-loader',
-          options: {
-            helperDirs: [
-              path.join(__dirname, '/../assets/scripts/templates/helpers')
-            ]
-          }
         }
       ]
-    },
-    resolve: {
-      alias: {
-        handlebars: 'handlebars/dist/handlebars.js'
-      }
     },
     stats: {
       colors: true,
