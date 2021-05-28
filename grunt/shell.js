@@ -27,12 +27,15 @@ module.exports = {
     command: '((git branch | grep master) && (git branch | (! grep main)) && git branch -m master main) || true'
   },
   'git-is-clean': {
-    // `$(git status --porcelain)` will evaluate to the empty string if the
+    // `git status --porcelain` will evaluate to the empty string if the
     // working directory is clean.
     // `test -z` will exit 0 (true) if its argument is an empty string.
     // If it doesn't exit true, `(git status && false)` will show why the
     // repository isn't clean and exit false causing the grunt tasks to end.
-    command: 'test -z "$(git status --porcelain)"  || (git status && false)'
+
+    // WARNING: The shell we are using doesn't seem to support executing commands
+    // with `$()` or backticks. So instead we are using xargs. See here: https://askubuntu.com/a/1164550
+    command: 'git status --porcelain | xargs -I % test -z % || (git status && false)'
   },
   'git-push-main': {
     // if the push to main fails, we want to delete any files that were created
@@ -44,16 +47,18 @@ module.exports = {
   },
   'deploy-prepare': {
     command: [
-      'git branch -D gh-pages || echo "so not removed"',
+      '(git branch -D gh-pages || echo "so not removed")',
       'git checkout --orphan gh-pages',
-      "git rm --cached '*'"
+      // || true: Allows this command to pass, since it will fail to delete ignored files
+      '(git rm -rf --cached * || true)'
     ].join(' && ')
   },
   'deploy-publish': {
     command: [
       'touch .nojekyll',
       `git add --force .nojekyll ${ghPagesList}`,
-      'git commit -m "deploy task"',
+      // If we already committed before we still want to continue deploying
+      '(git commit -m "deploy task" || true)',
       'git push origin gh-pages --force',
       'git clean -x -d --force --exclude=node_modules',
       'git checkout main'

@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const TerserPlugin = require('terser-webpack-plugin')
 
 const path = require('path')
 module.exports = {
@@ -17,7 +18,7 @@ module.exports = {
         $: 'jquery',
         jQuery: 'jquery',
         'window.jQuery': 'jquery'
-      }),
+      })
     ],
     module: {
       rules: [
@@ -40,7 +41,8 @@ module.exports = {
           test: /\.scss$/,
           use: [
             { loader: 'style-loader' },
-            { loader: 'css-loader',
+            {
+              loader: 'css-loader',
               options: {
                 url: false
               }
@@ -85,8 +87,24 @@ module.exports = {
     stats: {
       colors: true,
       modules: true,
-      reasons: true
-    }
+      reasons: true,
+      performance: false
+    },
+    optimization: {
+      minimize: true,
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            format: {
+              comments: false
+            }
+          },
+          extractComments: false
+        })
+      ]
+    },
+    // This is the default. It has to be set or a warning prevents windows deploys.
+    mode: 'production'
   },
   build: {
     failOnError: true,

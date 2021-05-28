@@ -7,15 +7,15 @@
     "content": "CC­BY­NC­SA 4.0"
   },
   "dependencies": {
-    "@babel/preset-env": "^7.14.2",
-    "babel-polyfill": "^6.26.0",
     "bootstrap": "^5.0.1",
     "jquery": "^3.6.0",
     "popper.js": "^1.14.3"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.14.2",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.2.2",
+    "babel-polyfill": "^6.26.0",
     "clone": "^2.1.2",
     "css-loader": "^5.2.6",
     "eslint": "^7.27.0",
@@ -42,6 +42,7 @@
     "postcss-loader": "^5.3.0",
     "sass-loader": "^11.1.1",
     "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^5.1.2",
     "time-grunt": "^2.0.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.38.0",
