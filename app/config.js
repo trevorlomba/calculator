@@ -1,5 +1,3 @@
-'use strict'
-
 let apiUrl
 const apiUrls = {
   production: '<replace-with-heroku-url>',
