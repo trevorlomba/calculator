@@ -3,7 +3,13 @@
 
 // use require without a reference to ensure a file is bundled
 // require('./example')
+const calculatorScripts = require('./calculator-scripts/scripts.js')
 
 $(() => {
-  // your JS code goes here
+  $('.calculator-keys').on('click', function (event) {
+    const buttonClick = event.target
+    if (buttonClick.type === 'button') {
+      calculatorScripts.onButtonClick(event)
+    }
+  })
 })
