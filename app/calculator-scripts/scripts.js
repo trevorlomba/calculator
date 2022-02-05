@@ -25,9 +25,9 @@ const isOperator = (value) => /[*]|[/]|[-]|[+]/.test(value)
 const isDecimal = (value) => /[[.]/.test(value)
 const isPlusMinus = (value) => /[+-]/.test(value) && value.length > 1
 
-const swapValues = (x, y = '') => {
-  x.attr('value', y)
-  x.html(y)
+const swapValues = (first, second = '') => {
+  first.attr('value', second)
+  first.html(second)
 }
 
 const styleMe = () => {
@@ -97,6 +97,7 @@ const onButtonClick = (event) => {
 
 const handleNumber = () => {
   if (!yValue) {
+    // if (!y)
     updatedYValue = +buttonClickValue
   } else {
     updatedYValue = +(yValue + buttonClickValue)
@@ -106,6 +107,7 @@ const handleNumber = () => {
 
 const handleAllClear = () => {
   if (!yValue && !currentOperatorValue) {
+    // if (!y !ov)
     swapValues(x)
   }
   swapValues(currentOperator)
@@ -117,7 +119,6 @@ const handleDecimal = () => {
   if (!yValue) {
     // if (!y)
     updatedYValue = '0' + buttonClickValue
-    swapValues(y, updatedYValue)
   } else {
     updatedYValue = yValue + buttonClickValue
   }
@@ -126,30 +127,27 @@ const handleDecimal = () => {
 
 const handlePlusMinus = () => {
   if (yValue) {
+    // if (y)
     yValue = yValue * -1
     swapValues(y, yValue)
   } else if (xValue) {
+    // if (x)
     xValue = +xValue * -1
     swapValues(x, xValue)
-  } else {
-    // if (!y)
-    console.log('nothing to do')
   }
 }
 
 const handleOperator = () => {
-  if (yValue && xValue && currentOperatorValue) {
+  swapValues(currentOperator, buttonClickValue)
+  if (!xValue && !yValue) {
+    // if (!x !y)
+  } else if (yValue && xValue) {
     // if (y x ov)
     calculateAnswer()
-    swapValues(currentOperator, buttonClickValue)
-  } else if (yValue && (!currentOperatorValue || !xValue)) {
+  } else if (yValue) {
     // if (y (!x || !ov))
     swapValues(x, yValue)
     swapValues(y)
-    swapValues(currentOperator, buttonClickValue)
-  } else if (xValue && !yValue) {
-    // if (x !y)
-    swapValues(currentOperator, buttonClickValue)
   }
 }
 
@@ -158,6 +156,7 @@ const handleEquals = () => {
     // if (x y ov)
     calculateAnswer()
   } else if (yValue) {
+    // if (y)
     swapValues(x, yValue)
   }
   swapValues(y)
