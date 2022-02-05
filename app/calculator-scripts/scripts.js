@@ -1,8 +1,6 @@
 /* eslint-disable prefer-const */
 /* eslint-disable no-tabs */
 
-//  NAN when divide by zero
-
 let y = $('.current-operand')
 let x = $('.previous-operand')
 let currentOperator = $('.operator-symbol')
@@ -12,6 +10,8 @@ let xValue
 let yValue
 let currentOperatorValue
 let buttonClickValue
+let updatedYValue
+let previousEquation
 
 const multiply = (x, y) => x * y
 const divide = (x, y) => x / y
@@ -31,32 +31,21 @@ const styleMe = () => {
   xValue = x.attr('value')
   yValue = y.attr('value')
   currentOperatorValue = currentOperator.attr('value')
-  if (xValue && currentOperatorValue) {
-    y.css('color', 'red')
-    y.css('font-weight', '')
-    x.css('color', 'green')
-  } else if (yValue && !currentOperatorValue && xValue) {
+  if (yValue && !currentOperatorValue && xValue) {
     x.css('color', 'grey')
-    y.css('color', 'red')
-    y.css('font-weight', '')
   } else if (!yValue && !currentOperatorValue && xValue) {
     x.css('color', 'blue')
-    x.css('font-weight', 'bolder')
-  } else if (!xValue && !currentOperatorValue && yValue) {
-    y.css('color', 'red')
-    y.css('font-weight', '')
-  } else if (!xValue && !currentOperatorValue && !yValue) {
-    y.css('color', 'red')
-    y.css('font-weight', '')
+  } else {
+    x.css('color', 'green')
   }
 }
 
 const calculateAnswer = () => {
-  xValue = x.attr('value')
-  yValue = y.attr('value')
-  currentOperatorValue = currentOperator.attr('value')
   let firstValue = +xValue
   let secondValue = +yValue
+  if ((yValue === '0' || xValue === '0') && currentOperatorValue === '/') {
+    return
+  }
   switch (currentOperatorValue) {
     case '*': answer = multiply(firstValue, secondValue, currentOperatorValue)
       break
@@ -67,17 +56,13 @@ const calculateAnswer = () => {
     case '+': answer = add(firstValue, secondValue, currentOperatorValue)
       break
   }
-  let previousEquation = firstValue + ' ' + currentOperatorValue + ' ' + secondValue + ' = ' + answer
+  previousEquation = firstValue + ' ' + currentOperatorValue + ' ' + secondValue + ' = ' + answer
   $('.previous-answers').prepend('<div>' + previousEquation + '</div>')
   swapValues(x, answer)
   swapValues(y)
 }
 
 const onButtonClick = (event) => {
-  yValue = y.attr('value')
-  xValue = x.attr('value')
-  currentOperatorValue = currentOperator.attr('value')
-
   let buttonClick = event.target
   buttonClickValue = buttonClick.value
 
@@ -103,103 +88,69 @@ const onButtonClick = (event) => {
 }
 
 const handleNumber = () => {
-  let updatedYValue = yValue + buttonClickValue
+  if (!yValue) {
+    updatedYValue = +buttonClickValue
+  } else {
+    updatedYValue = +(yValue + buttonClickValue)
+  }
   swapValues(y, updatedYValue)
 }
 
 const handleAllClear = () => {
-  if (
-    (xValue && yValue) || (xValue && currentOperatorValue)) {
-    // if POV OV exist only, or POV and COV only, clear all but POV and return PO to answer styling
-    swapValues(currentOperator)
-    swapValues(y)
-  } else {
-    // otherwise, clear all
+  if (!yValue && !currentOperatorValue) {
     swapValues(x)
-    swapValues(currentOperator)
-    swapValues(y)
   }
+  swapValues(currentOperator)
+  swapValues(y)
 }
 
 const handleDecimal = () => {
-  if (yValue.indexOf('.') > 0) {
-    // if there is already a decimal in COV do nothing
-    return
-  }
-  if (yValue) {
-    // if there is COV value append decimal to end
-    let updatedYValue = yValue + buttonClickValue
+  let updatedYValue
+  if (!yValue) {
+    // if (!y)
+    updatedYValue = ('0' + buttonClickValue)
     swapValues(y, updatedYValue)
   } else {
-    // if there is no COV set value to 0.
-    let updatedYValue = '0' + buttonClickValue
-    swapValues(y, updatedYValue)
+    updatedYValue = (yValue + buttonClickValue)
   }
+  swapValues(y, updatedYValue)
 }
 
 const handlePlusMinus = () => {
-  if (!xValue && !currentOperatorValue && !yValue) {
-    console.log('nothing to do')
-  } else if (xValue && !currentOperatorValue && !yValue) {
+  if (yValue) {
+    yValue = yValue * -1
+    swapValues(y, yValue)
+  } else if (xValue) {
     xValue = +xValue * -1
     swapValues(x, xValue)
-  } else if (!xValue && yValue) {
-    yValue = +yValue * -1
-    swapValues(y, yValue)
-  } else if (xValue && yValue) {
-    yValue = +yValue * -1
-    swapValues(y, yValue)
+  } else {
+    // if (!y)
+    console.log('nothing to do')
   }
 }
 
 const handleOperator = () => {
-  // if COV exists but OV and POV do not
-  if (yValue && !currentOperatorValue && !xValue) {
-    swapValues(x, yValue)
-    swapValues(y)
-    swapValues(currentOperator, buttonClickValue)
-  }
-  // if OV is empty
-  if (yValue && xValue && !currentOperatorValue) {
-    swapValues(x, yValue)
-    swapValues(y)
-    swapValues(currentOperator, buttonClickValue)
-  }
-  // if all empty
   if (yValue && xValue && currentOperatorValue) {
-    calculateAnswer(xValue, yValue, currentOperatorValue, buttonClickValue)
+    // if (y x ov)
+    calculateAnswer()
     swapValues(currentOperator, buttonClickValue)
-  // if COV empty
+  } else if (yValue && (!currentOperatorValue || !xValue)) {
+    // if (y (!x || !ov))
+    swapValues(x, yValue)
+    swapValues(y)
+    swapValues(currentOperator, buttonClickValue)
   } else if (xValue && !yValue) {
-    // if POV exists but COV does not,
+    // if (x !y)
     swapValues(currentOperator, buttonClickValue)
   }
 }
 
 const handleEquals = () => {
   if (yValue && xValue && currentOperatorValue) {
-    // if COV OV and POV all exist
-    calculateAnswer(xValue, yValue, currentOperatorValue, buttonClickValue)
-  } else if (yValue && !currentOperatorValue) {
+    // if (x y ov)
+    calculateAnswer()
+  } else if (yValue) {
     swapValues(x, yValue)
-    swapValues(y)
-    return
-  } else if (yValue && !xValue) {
-    // if only COV has values, set PO to COV and clear CO and return PO oto answer styling
-    swapValues(x, yValue)
-    swapValues(y)
-    swapValues(currentOperator)
-  } else if (currentOperatorValue && !yValue && !xValue) {
-    // if  OV has a value only, clear it
-    swapValues(currentOperator)
-  } else if (yValue && xValue && currentOperatorValue) {
-    // if COV OV and POV all exist
-    calculateAnswer(xValue, yValue, currentOperatorValue, buttonClickValue
-    )
-  }
-  if (xValue && currentOperatorValue && !yValue) {
-    // if COV is empty but OV and POV are not, reset OV and restyle POV as answer
-    swapValues(currentOperator)
   }
   swapValues(y)
   swapValues(currentOperator)
