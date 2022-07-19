@@ -1,4 +1,5 @@
-# Basic Calculator by Trevor Lomba
+# Basic Calculator 
+#### by Trevor Lomba
 
 ## Quick Links
 * [deployed app](https://trevorlomba.github.io/calculator/)
